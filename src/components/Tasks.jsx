@@ -1,4 +1,4 @@
-import { ChevronRightIcon, TrashIcon } from "lucide-react";
+import { CheckIcon, ChevronRightIcon, TrashIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Button from "./button";
 
@@ -14,6 +14,10 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
     navigate(`/task?${query.toString()}`);
   }
 
+  if (tasks.length === 0) {
+    return null;
+  }
+
   return (
     <ul className="space-y-4 p-6 bg-slate-200 rounded-md shadow">
       {console.log(tasks)}
@@ -23,10 +27,11 @@ function Tasks({ tasks, onTaskClick, onDeleteTaskClick }) {
           <button
             //Chamar a função passando o id atual da tarefa
             onClick={() => onTaskClick(task.id)}
-            className={`bg-slate-400 w-full text-left text-white p-2 rounded-md ${
+            className={`flex gap-2 bg-slate-400 w-full text-left text-white p-2 rounded-md ${
               task.isCompleted && "line-through"
             }`}
           >
+            {task.isCompleted && <CheckIcon />}
             {task.title}
             {/* Mudar a interface conforme o mudar da informação inCompleted*/}
             {/* {tasks.isCompleted ? "COMPLETE" : "INCOMPLETE"} */}
